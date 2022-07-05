@@ -5,7 +5,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from db.base import database
-from db.models import straight_sofas
+from db.models import StraightSofas
 from parser.base import get_availability, get_item_id, get_prices, get_sku, get_title
 
 base_url = "https://azbykamebeli.ru"
@@ -28,21 +28,20 @@ async def parse_and_save_data(session) -> None:
             title = get_title(item)
             full_price, sale_price = get_prices(item)
             availability = get_availability(item)
-            parsed_item_data = {
-                "sku": sku,
-                "item_id": item_id,
-                "title": title,
-                "full_price": full_price,
-                "sale_price": sale_price,
-                "availability": availability,
-            }
+            parsed_item_data = StraightSofas(
+                sku=sku,
+                item_id=item_id,
+                title=title,
+                full_price=full_price,
+                sale_price=sale_price,
+                availability=availability,
+            )
             parsed_page_data.append(parsed_item_data)
         await write_to_db(parsed_page_data)
 
 
 async def write_to_db(data) -> None:
-    query = straight_sofas.insert()
-    await database.execute_many(query=query, values=data)
+    await StraightSofas.objects.bulk_create(data)
 
 
 async def main() -> None:
