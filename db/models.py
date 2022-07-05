@@ -5,7 +5,7 @@ from .base import metadata
 straight_sofas = Table(
     "straight_sofas",
     metadata,
-    Column("sku", Integer, primary_key=True, index=True),
+    Column("sku", Integer, primary_key=True, index=True, unique=True),
     Column("id", Integer),
     Column("title", String(length=100)),
     Column("full_price", Integer),
