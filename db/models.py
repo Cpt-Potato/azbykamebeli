@@ -1,15 +1,18 @@
-from sqlalchemy import Table, Column, Integer, String
+from ormar import Integer, Model, String
 
-from .base import metadata
+from .base import database, metadata
 
-straight_sofas = Table(
-    "straight_sofas",
-    metadata,
-    Column("id", Integer, primary_key=True, autoincrement=True),
-    Column("sku", String(length=50)),
-    Column("item_id", Integer),
-    Column("title", String(length=255)),
-    Column("full_price", Integer),
-    Column("sale_price", Integer),
-    Column("availability", String(length=50)),
-)
+
+class StraightSofas(Model):
+    class Meta:
+        tablename = "straight_sofas"
+        database = database
+        metadata = metadata
+
+    id = Integer(primary_key=True)
+    sku = String(max_length=50)
+    item_id = Integer(index=True)
+    title = String(max_length=255)
+    full_price = Integer(nullable=True)
+    sale_price = Integer()
+    availability = String(max_length=50)
