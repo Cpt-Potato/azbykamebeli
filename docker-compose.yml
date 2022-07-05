@@ -28,6 +28,7 @@ services:
     ports:
       - "8000:8000"
     environment:
+      # connect to postgres container
       DATABASE_URL: "postgresql+asyncpg://postgres:admin@postgres:5432/azbykamebeli"
     depends_on:
       - postgres
