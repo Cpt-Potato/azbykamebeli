@@ -13,9 +13,9 @@ url = "https://azbykamebeli.ru/catalog/0000057/"
 
 
 async def parse_and_save_data(session) -> None:
-    for page_number in range(17, 26):
-        print(f"Page {page_number}/25")
+    for page_number in range(1, 26):
         parsed_page_data = []
+        print(f"Page {page_number}/25")
         page_url = f"https://azbykamebeli.ru/catalog/0000057/?page={page_number}"
         response = session.get(page_url)
         soup = BeautifulSoup(response.text, "lxml")
