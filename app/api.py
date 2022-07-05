@@ -3,7 +3,7 @@ from fastapi.routing import APIRouter
 from starlette.responses import JSONResponse
 
 from db.models import StraightSofas
-from schemas import InfoModelBase, InfoModelOut, UpdateInfoModel
+from .schemas import InfoModelBase, InfoModelOut, UpdateInfoModel
 
 router = APIRouter()
 
